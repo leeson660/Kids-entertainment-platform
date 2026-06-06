@@ -187,8 +187,8 @@ export function GameEngine({ gameType, onBack }: Props) {
       const newCorrect = correct + 1
       setCorrect(newCorrect)
       setShowCelebration(true)
-      speak("Amazing! Well done! 🎉")
       if (newCorrect >= 5) {
+        speak("You did it! You are a superstar!")
         if (!wonRef.current) {
           wonRef.current = true
           updateProgress("complete_game", { gameType })
@@ -198,6 +198,7 @@ export function GameEngine({ gameType, onBack }: Props) {
           setShowEnd(true)
         }, 2000)
       } else {
+        speak("Amazing! Well done!")
         setTimeout(() => {
           setRound((r) => r + 1)
         }, 2000)
@@ -314,9 +315,11 @@ export function GameEngine({ gameType, onBack }: Props) {
         <div className="absolute inset-0 flex items-center justify-center z-40 pointer-events-none">
           <div className="text-center animate-bounce">
             <div className="text-8xl">⭐</div>
-            <p className="font-display font-black text-white text-3xl mt-2 drop-shadow-lg">
-              Well Done! 🎉
-            </p>
+            <div className="mt-3 bg-brand-yellow rounded-2xl px-6 py-3 shadow-xl border-4 border-white">
+              <p className="font-display font-black text-brand-dark text-3xl">
+                Well Done! 🎉
+              </p>
+            </div>
           </div>
         </div>
       )}
