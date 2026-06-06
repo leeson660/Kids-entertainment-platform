@@ -6,6 +6,7 @@ export function Wordmark({ size = "default" }: { size?: "small" | "default" | "l
 
   return (
     <span className={`font-display font-black ${textSize} leading-none select-none`}>
+      <span className="text-brand-dark">Miss </span>
       <span className="text-brand-red">K</span>
       <span className="text-brand-yellow">a</span>
       <span className="text-brand-green">t</span>
