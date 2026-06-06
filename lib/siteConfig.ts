@@ -16,7 +16,7 @@ export const siteConfig = {
     youtube: "https://www.youtube.com/@misskatiesclass",
     instagram: "https://www.instagram.com/misskatiesclass_official",
     tiktok: "https://www.tiktok.com/@inmisskatiesclass",
-    facebook: "https://www.facebook.com/MissKatiesClass",
+    facebook: "https://www.facebook.com/MissKatiesClass/",
   },
 
   // About page
@@ -37,8 +37,7 @@ export const siteConfig = {
     heading: "Get a Personalised Video for Your Little One",
     description:
       "Make your little one the star of their very own Miss Katie video",
-    orderUrl:
-      "https://misskatiesclass.com/ols/categories/personalised-video",
+    orderUrl: "https://tr.ee/Nmj02InzVY",
   },
 
   // Subscription config — backend only, never referenced in frontend components
