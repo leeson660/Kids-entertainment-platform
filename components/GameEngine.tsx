@@ -144,7 +144,25 @@ export function GameEngine({ gameType, onBack }: Props) {
     const u = new SpeechSynthesisUtterance(text)
     u.rate = 0.85
     u.pitch = 1.1
-    window.speechSynthesis.speak(u)
+
+    const pickVoice = () => {
+      const voices = window.speechSynthesis.getVoices()
+      // Prefer UK English female, then any English female, then any female
+      const voice =
+        voices.find((v) => /female/i.test(v.name) && /en[-_]GB/i.test(v.lang)) ||
+        voices.find((v) => /female/i.test(v.name) && /en/i.test(v.lang)) ||
+        voices.find((v) => /female/i.test(v.name)) ||
+        voices.find((v) => /samantha|karen|zira|moira|tessa/i.test(v.name))
+      if (voice) u.voice = voice
+      window.speechSynthesis.speak(u)
+    }
+
+    // Voices may load asynchronously on first call
+    if (window.speechSynthesis.getVoices().length > 0) {
+      pickVoice()
+    } else {
+      window.speechSynthesis.onvoiceschanged = pickVoice
+    }
   }, [])
 
   const newRound = useCallback(() => {

@@ -18,18 +18,9 @@ export default async function AboutPage() {
       {/* Hero */}
       <div className="text-center mb-12">
         <div className="flex justify-center mb-6">
-          {channelInfo?.thumbnailUrl ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img
-              src={channelInfo.thumbnailUrl}
-              alt="Miss Katie"
-              className="w-32 h-32 rounded-full border-4 border-brand-primary shadow-lg"
-            />
-          ) : (
-            <div className="w-32 h-32 rounded-full bg-brand-primary flex items-center justify-center shadow-lg">
-              <span className="font-display font-black text-4xl text-white">MK</span>
-            </div>
-          )}
+          <div className="w-32 h-32 rounded-full bg-brand-primary flex items-center justify-center shadow-lg border-4 border-white">
+            <span className="font-display font-black text-4xl text-white">MK</span>
+          </div>
         </div>
         <h1 className="font-display font-black text-brand-dark text-4xl mb-3">
           {siteConfig.about.headline}
