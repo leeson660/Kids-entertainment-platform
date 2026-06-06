@@ -8,10 +8,23 @@ export const metadata: Metadata = {
   description: "Toys, resources, and products recommended by Miss Katie for little learners.",
 }
 
+function ComingSoonCard({ label = "More picks coming soon!" }: { label?: string }) {
+  return (
+    <div className="bg-brand-yellow/10 border-2 border-dashed border-brand-yellow rounded-2xl flex flex-col items-center justify-center gap-3 p-8 min-h-[280px]">
+      <span className="text-5xl">✨</span>
+      <p className="font-display font-bold text-brand-dark text-center text-base leading-snug">
+        {label}
+      </p>
+      <p className="font-body text-brand-dark/50 text-sm text-center">
+        Miss Katie is busy handpicking the best for your little ones — check back soon!
+      </p>
+    </div>
+  )
+}
+
 export default function ShopPage() {
   const ownProducts = shopData.filter((p) => p.category === "own")
-  const toys = shopData.filter((p) => p.category === "toys")
-  const resources = shopData.filter((p) => p.category === "resources")
+  const recommended = shopData.filter((p) => p.category !== "own")
 
   return (
     <div className="max-w-6xl mx-auto px-4 py-10">
@@ -33,33 +46,22 @@ export default function ShopPage() {
           {ownProducts.map((item) => (
             <ProductCard key={item.id} item={item} />
           ))}
+          <ComingSoonCard label="More from Miss Katie coming soon!" />
         </div>
       </section>
 
-      {/* Toys */}
-      {toys.length > 0 && (
+      {/* Recommended */}
+      {recommended.length > 0 && (
         <section className="mb-12">
           <h2 className="font-display font-bold text-brand-dark text-2xl mb-6">
-            🧸 Recommended Toys
+            ⭐ Also Recommended
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {toys.map((item) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            {recommended.map((item) => (
               <ProductCard key={item.id} item={item} />
             ))}
-          </div>
-        </section>
-      )}
-
-      {/* Resources */}
-      {resources.length > 0 && (
-        <section className="mb-12">
-          <h2 className="font-display font-bold text-brand-dark text-2xl mb-6">
-            📚 Learning Resources
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {resources.map((item) => (
-              <ProductCard key={item.id} item={item} />
-            ))}
+            <ComingSoonCard label="Miss Katie's picks — coming soon!" />
+            <ComingSoonCard label="More picks on the way!" />
           </div>
         </section>
       )}

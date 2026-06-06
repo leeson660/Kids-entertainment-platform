@@ -28,9 +28,26 @@ export function Hero() {
         <h1 className="font-display font-black text-white text-4xl md:text-6xl leading-tight mb-4 drop-shadow-md">
           {siteConfig.tagline}
         </h1>
-        <p className="font-body text-white/90 text-xl md:text-2xl mb-10">
+        <p className="font-body text-white/90 text-xl md:text-2xl mb-8">
           {siteConfig.subTagline}
         </p>
+
+        {/* Stats */}
+        <div className="flex flex-wrap justify-center gap-3 mb-10">
+          <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-5 py-2.5 flex items-center gap-2">
+            <span className="text-xl">🎬</span>
+            <span className="font-display font-black text-white text-lg leading-none">131M+</span>
+            <span className="font-body text-white/80 text-sm">Views</span>
+          </div>
+          <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-5 py-2.5 flex items-center gap-2">
+            <span className="text-xl">👶</span>
+            <span className="font-body text-white/90 text-sm font-semibold">Made for Ages 0–4</span>
+          </div>
+          <div className="bg-white/20 backdrop-blur-sm rounded-2xl px-5 py-2.5 flex items-center gap-2">
+            <span className="text-xl">💛</span>
+            <span className="font-body text-white/90 text-sm font-semibold">Loved by Families Worldwide</span>
+          </div>
+        </div>
 
         {/* CTAs */}
         <div className="flex flex-col sm:flex-row gap-4 justify-center">

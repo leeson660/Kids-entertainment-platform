@@ -31,7 +31,7 @@ export function ProductCard({ item }: ProductCardProps) {
           rel="noopener noreferrer"
           className="block text-center bg-brand-primary text-white font-body font-bold py-2.5 rounded-xl hover:bg-brand-primary/90 transition-colors mt-1"
         >
-          {item.category === "own" ? "Order Now" : "View on Amazon"}
+          {item.category === "own" ? "Order Now" : "Shop Now"}
         </a>
       </div>
     </div>
