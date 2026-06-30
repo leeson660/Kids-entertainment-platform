@@ -11,6 +11,7 @@ const navLinks = [
   { href: "/play", label: "Content Hub" },
   { href: "/worksheets", label: "Resources" },
   { href: "/activity", label: "Activities" },
+  { href: "/pricing", label: "Pricing" },
   { href: "/shop", label: "Shop" },
   { href: "/about", label: "About" },
 ]

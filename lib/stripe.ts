@@ -1,5 +1,5 @@
 // Stripe — scaffold only, invisible in MVP
-// Stage 2: set STRIPE_SECRET_KEY in Vercel to activate
+// Stage 2: set STRIPE_SECRET_KEY in Vercel env vars to activate payments
 
 import Stripe from "stripe"
 
@@ -13,22 +13,24 @@ export const PLANS = {
     name: "Free",
     price: 0,
     features: [
-      "All YouTube videos",
-      "All 3 games",
-      "2 worksheets",
-      "3 activities/day",
+      "Full video library",
+      "Browse all categories",
+      "Free downloadable resources",
+      "AI activity generator (3/day)",
+      "Progress tracking & badges",
     ],
   },
   premium: {
     name: "Premium",
-    price: 499,
+    price: 499, // pence — £4.99/mo
     stripePriceId: process.env.STRIPE_PREMIUM_PRICE_ID,
     features: [
-      "Everything free",
-      "Exclusive videos",
-      "All worksheets",
-      "Unlimited activities",
-      "Early access",
+      "Everything in Free",
+      "Exclusive members-only videos",
+      "Unlimited AI activity generator",
+      "Early access to new content",
+      "Members-only community access",
+      "Monthly live Q&A with [Creator Name]",
     ],
   },
 }

@@ -3,6 +3,7 @@ import Link from "next/link"
 import { categoryMeta } from "@/lib/categorise"
 import { shopData } from "@/lib/shopData"
 import { siteConfig } from "@/lib/siteConfig"
+import { PLANS } from "@/lib/stripe"
 import { Hero } from "@/components/Hero"
 import { ProductCard } from "@/components/ProductCard"
 import { CategoryCard } from "@/components/CategoryCard"
@@ -249,6 +250,90 @@ export default function HomePage() {
           >
             Order Now
           </a>
+        </div>
+      </section>
+
+      {/* Subscribe / Membership */}
+      <section className="bg-gradient-to-b from-slate-50 to-white border-y border-gray-100 py-20">
+        <div className="max-w-5xl mx-auto px-4">
+          {/* Heading */}
+          <div className="text-center mb-12">
+            <span className="inline-block bg-brand-primary/10 text-brand-primary font-display font-bold text-xs uppercase tracking-widest px-3 py-1.5 rounded-full mb-4">
+              Membership
+            </span>
+            <h2 className="font-display font-black text-brand-dark text-3xl md:text-4xl mb-3">
+              Start free. Go further with Premium.
+            </h2>
+            <p className="font-body text-brand-dark/50 text-base max-w-xl mx-auto">
+              Everything is free — or unlock the full experience with Premium for {siteConfig.subscription.currency}{(PLANS.premium.price / 100).toFixed(2)}/month.
+            </p>
+          </div>
+
+          {/* Two-column cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 mb-10">
+            {/* Free */}
+            <div className="bg-white rounded-2xl border border-gray-200 p-7">
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <p className="font-display font-bold text-brand-dark/40 text-xs uppercase tracking-widest">Free</p>
+                  <p className="font-display font-black text-brand-dark text-3xl">£0</p>
+                </div>
+                <span className="text-2xl">🎯</span>
+              </div>
+              <ul className="space-y-2.5">
+                {PLANS.free.features.map((f) => (
+                  <li key={f} className="flex items-center gap-2.5 font-body text-brand-dark/70 text-sm">
+                    <span className="text-brand-green font-bold text-base leading-none">✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Premium */}
+            <div className="bg-brand-dark rounded-2xl p-7 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-48 h-48 bg-brand-primary/25 rounded-full blur-3xl -translate-y-1/4 translate-x-1/4 pointer-events-none" />
+              <div className="relative flex items-center justify-between mb-5">
+                <div>
+                  <div className="flex items-center gap-2 mb-0.5">
+                    <p className="font-display font-bold text-brand-primary text-xs uppercase tracking-widest">Premium</p>
+                    <span className="bg-brand-yellow text-brand-dark font-display font-bold text-[10px] px-1.5 py-0.5 rounded-full">
+                      {siteConfig.subscription.trialDays}-day free trial
+                    </span>
+                  </div>
+                  <p className="font-display font-black text-white text-3xl">
+                    {siteConfig.subscription.currency}{(PLANS.premium.price / 100).toFixed(2)}
+                    <span className="text-white/40 text-sm font-body font-normal ml-1">/mo</span>
+                  </p>
+                </div>
+                <span className="text-2xl">⭐</span>
+              </div>
+              <ul className="relative space-y-2.5">
+                {PLANS.premium.features.map((f) => (
+                  <li key={f} className="flex items-center gap-2.5 font-body text-white/80 text-sm">
+                    <span className="text-brand-primary font-bold text-base leading-none">✓</span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+
+          {/* CTA row */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+            <Link
+              href="/pricing"
+              className="inline-block bg-brand-primary text-white font-display font-bold text-base px-10 py-3.5 rounded-xl shadow-lg shadow-brand-primary/30 hover:bg-brand-primary/90 transition-all duration-200 hover:scale-105"
+            >
+              See full pricing
+            </Link>
+            <Link
+              href="/videos"
+              className="inline-block border-2 border-gray-200 text-brand-dark font-display font-bold text-base px-10 py-3.5 rounded-xl hover:border-brand-primary hover:text-brand-primary transition-colors"
+            >
+              Start for free
+            </Link>
+          </div>
         </div>
       </section>
 
