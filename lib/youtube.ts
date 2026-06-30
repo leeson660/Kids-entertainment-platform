@@ -96,7 +96,7 @@ export async function getChannelVideos(): Promise<YouTubeVideo[]> {
         publishedAt: item.snippet.publishedAt,
         duration: formatDuration(details.duration || ""),
         viewCount: formatViewCount(details.viewCount || "0"),
-        channelTitle: item.snippet?.resourceId ? "Miss Katie's Class" : "",
+        channelTitle: "",
       }
     })
   } catch (err) {

@@ -1,61 +1,120 @@
-"use client"
+// Content Hub — replaces the children's games page with a generic
+// featured-content showcase suitable for any creator's audience.
 
-import { useState } from "react"
-import { GameEngine } from "@/components/GameEngine"
-import { gameData } from "@/lib/gameData"
+import { Metadata } from "next"
+import Link from "next/link"
+import { siteConfig } from "@/lib/siteConfig"
+import { categoryMeta } from "@/lib/categorise"
 
-type GameType = keyof typeof gameData | null
+export const metadata: Metadata = {
+  title: "Content Hub | [Creator Name]",
+  description:
+    "Explore the best of [Creator Name]'s content — featured videos, curated playlists, top picks, and more.",
+}
 
-const gameCards = [
-  { id: "animals" as const, emoji: "🐾", title: "Tap the Animal", desc: "Find the right animal! Big, bright buttons for little fingers." },
-  { id: "colours" as const, emoji: "🎨", title: "Tap the Colour", desc: "Learn all the colours with fun circle buttons." },
-  { id: "shapes" as const, emoji: "⭐", title: "Tap the Shape", desc: "Circles, squares, stars and more — can you find them all?" },
-]
-
-export default function PlayPage() {
-  const [activeGame, setActiveGame] = useState<GameType>(null)
-
-  if (activeGame) {
-    return <GameEngine gameType={activeGame} onBack={() => setActiveGame(null)} />
-  }
-
+export default function ContentHubPage() {
   return (
-    <div className="max-w-3xl mx-auto px-4 py-10">
-      <div className="text-center mb-10">
+    <div className="max-w-4xl mx-auto px-4 py-10">
+      <div className="text-center mb-12">
         <h1 className="font-display font-black text-brand-dark text-4xl md:text-5xl mb-4">
-          Free Learning Games for Toddlers 🎮
+          Content Hub 🗂️
         </h1>
         <p className="font-body text-brand-dark/60 text-lg max-w-xl mx-auto">
-          Play free interactive learning games for babies and toddlers aged 0-4.
-          Tap the animal, match the colour, identify shapes — all with audio prompts
-          and big toddler-friendly buttons.
+          The best of [Creator Name] — curated, categorised, and ready to explore. Start with a
+          featured pick or dive into a category below.
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
-        {gameCards.map((game) => (
-          <button
-            key={game.id}
-            onClick={() => setActiveGame(game.id)}
-            className="group bg-white rounded-2xl p-8 shadow-md hover:shadow-xl transition-all duration-200 hover:-translate-y-2 text-center border-2 border-transparent hover:border-brand-primary/30 flex flex-col items-center gap-4"
-          >
-            <span className="text-7xl group-hover:scale-110 transition-transform duration-200">
-              {game.emoji}
-            </span>
-            <h2 className="font-display font-black text-brand-dark text-xl">{game.title}</h2>
-            <p className="font-body text-brand-dark/60 text-sm">{game.desc}</p>
-            <span className="mt-2 bg-brand-primary text-white font-display font-bold px-6 py-3 rounded-2xl group-hover:bg-brand-primary/90 transition-colors">
-              Play Now!
-            </span>
-          </button>
-        ))}
-      </div>
+      {/* Featured Picks */}
+      <section className="mb-14">
+        <h2 className="font-display font-bold text-brand-dark text-2xl mb-6">
+          ⭐ Featured Picks
+        </h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          {[
+            {
+              emoji: "🚀",
+              label: "Start Here",
+              desc: "New to [Creator Name]? These videos are the perfect place to begin.",
+              href: "/category/getting-started",
+              colour: "from-brand-primary/20 to-sky-200/40",
+            },
+            {
+              emoji: "🎓",
+              label: "Most Popular Tutorials",
+              desc: "The step-by-step guides that have helped the most viewers.",
+              href: "/category/tutorials",
+              colour: "from-brand-yellow/30 to-amber-100/40",
+            },
+            {
+              emoji: "💡",
+              label: "Quick Tips",
+              desc: "Short, punchy videos — great for a 5-minute learning session.",
+              href: "/category/tips-and-tricks",
+              colour: "from-brand-green/20 to-emerald-100/40",
+            },
+            {
+              emoji: "🔍",
+              label: "Deep Dives",
+              desc: "Got time to go all in? These long-form explorations are worth every minute.",
+              href: "/category/deep-dives",
+              colour: "from-purple-200/40 to-pink-100/40",
+            },
+          ].map((card) => (
+            <Link
+              key={card.label}
+              href={card.href}
+              className={`group bg-gradient-to-br ${card.colour} rounded-2xl p-6 shadow-md hover:shadow-xl transition-all duration-200 hover:-translate-y-1 border-2 border-white/60`}
+            >
+              <span className="text-4xl block mb-3 group-hover:scale-110 transition-transform duration-200">
+                {card.emoji}
+              </span>
+              <h3 className="font-display font-bold text-brand-dark text-xl mb-1">{card.label}</h3>
+              <p className="font-body text-brand-dark/60 text-sm">{card.desc}</p>
+              <span className="inline-block mt-4 text-brand-primary font-body font-semibold text-sm group-hover:underline">
+                Browse videos →
+              </span>
+            </Link>
+          ))}
+        </div>
+      </section>
 
-      <div className="mt-12 bg-brand-yellow/30 rounded-2xl p-6 text-center">
-        <p className="font-body text-brand-dark/70 text-sm">
-          🎯 Each game awards <strong>+3 stars</strong> when you complete it!
-          Collect stars to unlock badges on your Progress page.
+      {/* Browse All Categories */}
+      <section className="mb-14">
+        <h2 className="font-display font-bold text-brand-dark text-2xl mb-6">
+          📚 Browse All Categories
+        </h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {Object.entries(categoryMeta).map(([slug, meta]) => (
+            <Link
+              key={slug}
+              href={`/category/${slug}`}
+              className="group bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-all text-center hover:-translate-y-1"
+            >
+              <span className="text-4xl block mb-2 group-hover:scale-110 transition-transform">{meta.emoji}</span>
+              <h3 className="font-body font-semibold text-brand-dark text-sm">{meta.label}</h3>
+              <p className="font-body text-brand-dark/40 text-xs mt-1 line-clamp-2">{meta.description}</p>
+            </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* YouTube CTA */}
+      <div className="bg-brand-dark rounded-2xl p-8 text-center">
+        <p className="font-display font-bold text-white text-xl mb-2">
+          Want even more content?
         </p>
+        <p className="font-body text-white/70 text-sm mb-6">
+          Subscribe on YouTube and never miss a new upload from {siteConfig.creatorName}.
+        </p>
+        <a
+          href={siteConfig.channelUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="inline-block bg-brand-red text-white font-display font-black text-lg px-8 py-4 rounded-2xl hover:bg-brand-red/90 transition-colors"
+        >
+          ▶ Subscribe on YouTube
+        </a>
       </div>
     </div>
   )

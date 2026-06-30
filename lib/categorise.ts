@@ -1,103 +1,94 @@
-export type VideoCategory =
-  | "animals"
-  | "first-words"
-  | "songs"
-  | "sign-language"
-  | "emotions"
-  | "abc-numbers"
+// =============================================================================
+// VIDEO CATEGORIES
+// Customise the categories and their keyword lists to match the creator's niche.
+// Videos are automatically categorised by matching their title against keywords.
+// =============================================================================
 
+export type VideoCategory =
+  | "getting-started"
+  | "tutorials"
+  | "tips-and-tricks"
+  | "deep-dives"
+  | "reviews"
+  | "community"
+
+// Keywords used to auto-categorise videos fetched from the YouTube API.
+// Update these to match the vocabulary used in the creator's video titles.
 const categoryKeywords: Record<VideoCategory, string[]> = {
-  animals: [
-    "animal",
-    "dog",
-    "cat",
-    "duck",
-    "cow",
-    "horse",
-    "pig",
-    "lion",
-    "elephant",
-    "bird",
-    "fish",
-    "frog",
-    "bear",
-    "rabbit",
-    "sheep",
-    "monkey",
-    "tiger",
-    "giraffe",
-    "snake",
-    "turtle",
-    "penguin",
-    "whale",
-    "farm",
-    "jungle",
-    "zoo",
+  "getting-started": [
+    "intro",
+    "introduction",
+    "beginner",
+    "start here",
+    "getting started",
+    "first",
+    "welcome",
+    "new to",
+    "basics",
+    "overview",
+    "what is",
   ],
-  "first-words": [
-    "first word",
-    "words",
-    "speech",
-    "talk",
-    "say",
-    "sentence",
-    "vocabulary",
-    "language",
-    "speaking",
-    "toddler talk",
+  tutorials: [
+    "how to",
+    "tutorial",
+    "guide",
+    "step by step",
+    "walkthrough",
+    "lesson",
+    "learn",
+    "masterclass",
+    "course",
+    "workshop",
   ],
-  songs: [
-    "song",
-    "nursery rhyme",
-    "rhyme",
-    "sing",
-    "music",
-    "melody",
-    "tune",
-    "itsy bitsy",
-    "wheels on the bus",
-    "twinkle",
-    "baa baa",
-    "humpty",
-    "incy wincy",
-    "heads shoulders",
-    "old macdonald",
+  "tips-and-tricks": [
+    "tips",
+    "tricks",
+    "hacks",
+    "secrets",
+    "shortcut",
+    "quick",
+    "fast",
+    "pro tip",
+    "mistakes to avoid",
+    "you should know",
   ],
-  "sign-language": [
-    "sign",
-    "bsl",
-    "gesture",
-    "british sign",
-    "makaton",
-    "signing",
+  "deep-dives": [
+    "deep dive",
+    "full guide",
+    "complete",
+    "everything you need",
+    "ultimate",
+    "comprehensive",
+    "explained",
+    "breakdown",
+    "in depth",
+    "detailed",
   ],
-  emotions: [
-    "emotion",
-    "feeling",
-    "happy",
-    "sad",
-    "angry",
-    "scared",
-    "kindness",
-    "love",
-    "excited",
-    "worried",
-    "upset",
-    "calm",
+  reviews: [
+    "review",
+    "best",
+    "top",
+    "ranked",
+    "comparison",
+    " vs ",
+    "recommended",
+    "worth it",
+    "honest",
+    "unboxing",
+    "tested",
   ],
-  "abc-numbers": [
-    "abc",
-    "alphabet",
-    "letter",
-    "number",
-    "count",
-    "counting",
-    "shape",
-    "colour",
-    "color",
-    "one two",
-    "1 2 3",
-    "phonics",
+  community: [
+    "q&a",
+    "questions answered",
+    "subscriber",
+    "fan",
+    "community",
+    "behind the scenes",
+    "bts",
+    "day in the life",
+    "vlog",
+    "update",
+    "announcement",
   ],
 }
 
@@ -105,35 +96,35 @@ export const categoryMeta: Record<
   VideoCategory,
   { label: string; emoji: string; description: string }
 > = {
-  animals: {
-    label: "Animals",
-    emoji: "🐾",
-    description: "Learn about dogs, cats, farm animals and more",
+  "getting-started": {
+    label: "Getting Started",
+    emoji: "🚀",
+    description: "New here? Start with these essential videos from [Creator Name].",
   },
-  "first-words": {
-    label: "First Words",
-    emoji: "🗣️",
-    description: "Build vocabulary and speech with fun videos",
+  tutorials: {
+    label: "Tutorials",
+    emoji: "🎓",
+    description: "Step-by-step guides and how-to videos for every skill level.",
   },
-  songs: {
-    label: "Songs & Nursery Rhymes",
-    emoji: "🎵",
-    description: "Sing along to classic and original songs",
+  "tips-and-tricks": {
+    label: "Tips & Tricks",
+    emoji: "💡",
+    description: "Quick wins, pro tips, and shortcuts shared by [Creator Name].",
   },
-  "sign-language": {
-    label: "Sign Language",
-    emoji: "✋",
-    description: "Learn British Sign Language (BSL) basics",
+  "deep-dives": {
+    label: "Deep Dives",
+    emoji: "🔍",
+    description: "In-depth explorations of the topics that matter most.",
   },
-  emotions: {
-    label: "Emotions & Feelings",
-    emoji: "😊",
-    description: "Explore feelings and emotional development",
+  reviews: {
+    label: "Reviews & Picks",
+    emoji: "⭐",
+    description: "Honest reviews and curated recommendations from [Creator Name].",
   },
-  "abc-numbers": {
-    label: "ABC & Numbers",
-    emoji: "🔤",
-    description: "Letters, numbers, shapes and colours",
+  community: {
+    label: "Community",
+    emoji: "👥",
+    description: "Q&As, fan features, behind-the-scenes, and community highlights.",
   },
 }
 

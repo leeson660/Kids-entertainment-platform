@@ -8,8 +8,8 @@ import { siteConfig } from "@/lib/siteConfig"
 
 const navLinks = [
   { href: "/videos", label: "Videos" },
-  { href: "/play", label: "Play" },
-  { href: "/worksheets", label: "Worksheets" },
+  { href: "/play", label: "Content Hub" },
+  { href: "/worksheets", label: "Resources" },
   { href: "/activity", label: "Activities" },
   { href: "/shop", label: "Shop" },
   { href: "/about", label: "About" },
@@ -44,7 +44,7 @@ export function NavBar() {
             href="/personalised"
             className="ml-2 px-4 py-2 rounded-xl bg-brand-red text-white font-body text-sm font-bold hover:bg-brand-red/90 transition-colors"
           >
-            Personalised Videos
+            Exclusive Content
           </Link>
         </nav>
 

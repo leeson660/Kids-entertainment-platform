@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const meta = categoryMeta[slug as VideoCategory]
   if (!meta) return {}
   return {
-    title: `${meta.label} Videos | Miss Katie's Class`,
-    description: `Watch all Miss Katie's ${meta.label} videos — free toddler learning for ages 0-4.`,
+    title: `${meta.label} Videos | [Creator Name]`,
+    description: `${meta.description} Watch all [Creator Name]'s ${meta.label.toLowerCase()} videos.`,
   }
 }
 

@@ -1,83 +1,95 @@
+// =============================================================================
+// DOWNLOADABLE RESOURCES
+// Populate these with the creator's actual downloadable files.
+// Each resource maps to a /worksheets/[slug] detail page.
+// =============================================================================
+
 export interface Worksheet {
   slug: string
   title: string
   emoji: string
   description: string
   category: string
-  activities: string[]
+  activities: string[]   // "What's included" bullet points
 }
 
 export const worksheets: Worksheet[] = [
   {
-    slug: "animals",
-    title: "Animal Match",
-    emoji: "🐾",
-    category: "Animals",
-    description: "Match the animal to its name by drawing a line",
+    slug: "starter-guide",
+    title: "[Creator Name]'s Starter Guide",
+    emoji: "📖",
+    category: "Guides",
+    description:
+      "Everything you need to get started — a handy reference covering the essential foundations.",
     activities: [
-      "Draw a line from the animal to its name",
-      "Colour in your favourite animal",
-      "Can you make the animal's sound?",
+      "Core concepts explained in plain language",
+      "Recommended resources and tools to get going",
+      "A step-by-step checklist for beginners",
     ],
   },
   {
-    slug: "first-words",
-    title: "First Words Trace",
-    emoji: "🗣️",
-    category: "First Words",
-    description: "Trace the word and draw the object",
+    slug: "quick-reference",
+    title: "Quick Reference Cheat Sheet",
+    emoji: "📋",
+    category: "Reference",
+    description:
+      "A single-page cheat sheet you can print and keep at your desk — key facts, formulas, or frameworks at a glance.",
     activities: [
-      "Trace each word with your finger or pencil",
-      "Draw a picture of each word",
-      "Say the word out loud as you trace it",
+      "Key terminology and definitions",
+      "The most-used shortcuts and techniques",
+      "A handy 'when stuck, try this' troubleshooting list",
     ],
   },
   {
-    slug: "songs",
-    title: "Nursery Rhyme Fun",
-    emoji: "🎵",
-    category: "Songs",
-    description: "Fill in the missing word from a nursery rhyme",
+    slug: "action-plan",
+    title: "30-Day Action Plan",
+    emoji: "🗓️",
+    category: "Planning",
+    description:
+      "A structured 30-day plan to help your audience build momentum and make real progress in [niche].",
     activities: [
-      "Fill in the missing words",
-      "Colour the pictures",
-      "Sing the rhyme with a grown-up",
+      "Daily and weekly focus areas",
+      "Progress tracking checkboxes",
+      "Space for notes and personal wins",
     ],
   },
   {
-    slug: "sign-language",
-    title: "BSL Signs",
-    emoji: "✋",
-    category: "Sign Language",
-    description: "Illustrated BSL hand signs to colour in and learn",
+    slug: "resource-toolkit",
+    title: "Recommended Tools & Resources",
+    emoji: "🛠️",
+    category: "Toolkits",
+    description:
+      "A curated list of everything [Creator Name] personally uses and recommends — with links and notes.",
     activities: [
-      "Colour in the hand signs",
-      "Try to copy each sign",
-      "Show a grown-up what you learned",
+      "Tools broken down by category and budget",
+      "[Creator Name]'s personal notes on each pick",
+      "Beginner vs advanced recommendations",
     ],
   },
   {
-    slug: "emotions",
-    title: "How Do You Feel?",
-    emoji: "😊",
-    category: "Emotions",
-    description: "Circle the face that shows the emotion",
+    slug: "community-challenge",
+    title: "Community Challenge Workbook",
+    emoji: "🏆",
+    category: "Community",
+    description:
+      "A structured workbook to accompany the latest community challenge — track your progress and share your results.",
     activities: [
-      "Look at each face and circle the right emotion",
-      "Draw your own happy face",
-      "Talk about a time you felt each emotion",
+      "Challenge rules and weekly goals",
+      "A daily log to track progress",
+      "Reflection prompts to share with the community",
     ],
   },
   {
-    slug: "abc",
-    title: "Trace the Letters",
-    emoji: "🔤",
-    category: "ABC & Numbers",
-    description: "Trace the letters A–F with dotted lines",
+    slug: "deep-dive-notes",
+    title: "Deep Dive Companion Notes",
+    emoji: "🔍",
+    category: "Guides",
+    description:
+      "Companion notes for [Creator Name]'s most in-depth videos — fill in as you watch for maximum retention.",
     activities: [
-      "Trace each letter with a pencil",
-      "Colour in the pictures next to each letter",
-      "Can you think of a word starting with each letter?",
+      "Key points summary for each section",
+      "Fill-in-the-blank note-taking prompts",
+      "Action items to implement immediately after watching",
     ],
   },
 ]

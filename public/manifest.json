@@ -1,7 +1,7 @@
 {
-  "name": "Miss Katie's Class",
-  "short_name": "Miss Katie",
-  "description": "Toddler learning videos, games and activities",
+  "name": "[Creator Name]'s Hub",
+  "short_name": "[Creator Name]",
+  "description": "Videos, resources, and exclusive content from [Creator Name]",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#3BB8F0",

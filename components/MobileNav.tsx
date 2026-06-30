@@ -6,16 +6,13 @@ import { usePathname } from "next/navigation"
 const mobileNavItems = [
   { href: "/", label: "Home", emoji: "🏠" },
   { href: "/videos", label: "Videos", emoji: "📺" },
-  { href: "/play", label: "Play", emoji: "🎮" },
-  { href: "/worksheets", label: "Sheets", emoji: "📄" },
+  { href: "/play", label: "Hub", emoji: "🗂️" },
+  { href: "/worksheets", label: "Resources", emoji: "📥" },
   { href: "/progress", label: "Progress", emoji: "⭐" },
 ]
 
 export function MobileNav() {
   const pathname = usePathname()
-
-  // Hide on game pages (the play page handles its own back button)
-  if (pathname.startsWith("/play/game")) return null
 
   return (
     <nav className="md:hidden fixed bottom-0 left-0 right-0 z-50 bg-white border-t border-gray-200 safe-area-bottom">

@@ -7,29 +7,29 @@ const client = new Anthropic({
 
 export async function POST(req: NextRequest) {
   try {
-    const { age, topic } = await req.json()
-    // NEVER accept or forward a child's name — only age and topic
+    // "age" field is reused here to carry the skill level — rename on full refactor
+    const { age: level, topic } = await req.json()
 
-    if (!age || !topic) {
-      return NextResponse.json({ error: "Missing age or topic" }, { status: 400 })
+    if (!level || !topic) {
+      return NextResponse.json({ error: "Missing level or topic" }, { status: 400 })
     }
 
-    const prompt = `You are Miss Katie's Class learning assistant.
-Generate a fun 5-minute home learning activity for a ${age} old child focused on ${topic}.
+    const prompt = `You are a helpful content assistant for a YouTube creator's fan hub.
+Generate a fun, practical activity idea for a ${level} level viewer interested in ${topic}.
 
-Activities must:
-- Require no special equipment — only everyday household items
-- Be age-appropriate for the developmental stage
-- Be warm, encouraging, and fun
-- Tie back to speech and language development where possible
+The activity should:
+- Be achievable in 15–30 minutes
+- Require only commonly available tools or materials
+- Be directly relevant to the topic
+- Include an encouraging, actionable tip
 
 Format your response as JSON only, no other text:
 {
-  "title": "Fun activity title",
+  "title": "Engaging activity title",
   "whatYouNeed": ["item1", "item2", "item3"],
   "steps": ["step1", "step2", "step3", "step4", "step5"],
-  "tip": "A quick encouraging tip for parents",
-  "suggestedVideo": "A suggested video topic to search on Miss Katie's Class"
+  "tip": "A quick encouraging tip for the viewer",
+  "suggestedVideo": "A suggested video topic to search for on the creator's channel"
 }`
 
     const message = await client.messages.create({

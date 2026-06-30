@@ -5,8 +5,9 @@ import { siteConfig } from "@/lib/siteConfig"
 import { categoryMeta } from "@/lib/categorise"
 
 export const metadata: Metadata = {
-  title: "About Miss Katie | Early Years Content Creator",
-  description: "Learn about Miss Katie — early years content creator helping babies and toddlers learn through songs, play and stories.",
+  title: "About [Creator Name] | Content Creator",
+  description:
+    "Learn about [Creator Name] — what they make, who they make it for, and how to work with them.",
 }
 
 export default async function AboutPage() {
@@ -18,8 +19,9 @@ export default async function AboutPage() {
       {/* Hero */}
       <div className="text-center mb-12">
         <div className="flex justify-center mb-6">
+          {/* Profile image placeholder — replace with real image once consent is confirmed */}
           <div className="w-32 h-32 rounded-full bg-brand-primary flex items-center justify-center shadow-lg border-4 border-white">
-            <span className="font-display font-black text-4xl text-white">MK</span>
+            <span className="font-display font-black text-4xl text-white">CN</span>
           </div>
         </div>
         <h1 className="font-display font-black text-brand-dark text-4xl mb-3">
@@ -38,9 +40,17 @@ export default async function AboutPage() {
       {/* Stats */}
       <div className="grid grid-cols-3 gap-4 mb-12">
         {[
-          { value: channelInfo ? `${Math.round(parseInt(channelInfo.subscriberCount) / 1000)}k+` : siteConfig.about.stats.subscribers, label: "Subscribers" },
-          { value: channelInfo ? `${channelInfo.videoCount}+` : siteConfig.about.stats.videos, label: "Videos" },
-          { value: siteConfig.about.stats.families, label: "Families Reached" },
+          {
+            value: channelInfo
+              ? `${Math.round(parseInt(channelInfo.subscriberCount) / 1000)}k+`
+              : siteConfig.about.stats.subscribers,
+            label: "Subscribers",
+          },
+          {
+            value: channelInfo ? `${channelInfo.videoCount}+` : siteConfig.about.stats.videos,
+            label: "Videos",
+          },
+          { value: siteConfig.about.stats.families, label: "Reached" },
         ].map((stat) => (
           <div key={stat.label} className="bg-brand-primary text-white rounded-2xl p-6 text-center">
             <div className="font-display font-black text-3xl">{stat.value}</div>
@@ -49,10 +59,10 @@ export default async function AboutPage() {
         ))}
       </div>
 
-      {/* What Miss Katie covers */}
+      {/* Content categories */}
       <div className="mb-12">
         <h2 className="font-display font-black text-brand-dark text-3xl mb-6 text-center">
-          What Miss Katie Covers 📚
+          Content Categories 📚
         </h2>
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {Object.entries(categoryMeta).map(([slug, meta]) => (
@@ -70,7 +80,7 @@ export default async function AboutPage() {
 
       {/* Contact */}
       <div className="bg-brand-dark text-white rounded-2xl p-8 text-center">
-        <h2 className="font-display font-black text-3xl mb-3">Work With Miss Katie 📩</h2>
+        <h2 className="font-display font-black text-3xl mb-3">Work With [Creator Name] 📩</h2>
         <p className="font-body text-white/70 mb-6">For collaborations, brand partnerships, and enquiries:</p>
         <a
           href={`mailto:${siteConfig.contactEmail}`}

@@ -1,3 +1,10 @@
+// =============================================================================
+// SHOP / MERCHANDISE DATA
+// Add the creator's actual products here. Each item maps to a card on /shop.
+// category "own" = creator's own products (button: "Order Now")
+// category "toys" | "resources" = affiliate picks (button: "Shop Now")
+// =============================================================================
+
 export interface ShopItem {
   id: string
   name: string
@@ -11,38 +18,38 @@ export interface ShopItem {
 }
 
 export const shopData: ShopItem[] = [
-  // Miss Katie's Own Products
+  // ── Creator's own products ──────────────────────────────────────────────────
   {
-    id: "personalised-video",
-    name: "Personalised Video",
+    id: "exclusive-content",
+    name: "Exclusive Personalised Content",
     description:
-      "A one-of-a-kind video made just for your little one, featuring their name and tailored to them.",
+      "A one-of-a-kind piece of content made just for you by [Creator Name] — unique and personal.",
     price: "Visit for pricing",
     emoji: "🎬",
-    affiliateUrl: "https://tr.ee/Nmj02InzVY",
+    affiliateUrl: "https://[your-order-page-url]",
     category: "own",
     featured: true,
   },
   {
-    id: "baby-tshirt",
-    name: "Miss Katie's Class Baby T-Shirt (Unisex)",
+    id: "branded-merch",
+    name: "[Creator Name] Branded Merchandise",
     description:
-      "Super soft unisex baby t-shirt featuring the Miss Katie's Class branding. Perfect for little fans!",
+      "Official branded merchandise — wear your fandom and support [Creator Name] directly.",
     price: "Visit for pricing",
     emoji: "👕",
-    affiliateUrl: "https://www.tshirtstudio.com/marketplace/miss-katie's-class/basic-tshirt",
+    affiliateUrl: "https://[your-merch-store-url]",
     category: "own",
     featured: true,
   },
-  // Recommended Products
+  // ── Affiliate picks ─────────────────────────────────────────────────────────
   {
-    id: "amazon-recommended",
-    name: "Miss Katie's Amazon Pick",
+    id: "affiliate-pick-1",
+    name: "[Creator Name]'s Top Pick",
     description:
-      "Handpicked by Miss Katie for little learners — a favourite from her Amazon storefront.",
+      "Handpicked and personally recommended by [Creator Name] — a favourite from their curated list.",
     price: "",
     emoji: "⭐",
-    affiliateUrl: "https://www.amazon.co.uk/dp/B09BG1QQTK/ref=cm_sw_r_as_gl_apa_gl_i_dl_1ZSJCDZ8T6APRSS738CT?linkCode=ml1&tag=misskatieslea-21",
+    affiliateUrl: "https://[affiliate-link-url]",
     category: "toys",
     featured: false,
   },

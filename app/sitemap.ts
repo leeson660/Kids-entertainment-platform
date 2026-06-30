@@ -2,7 +2,8 @@ import { MetadataRoute } from "next"
 import { categoryMeta } from "@/lib/categorise"
 import { worksheets } from "@/lib/worksheetData"
 
-const BASE = "https://misskatiesclass.com"
+// Set NEXT_PUBLIC_SITE_URL in .env.local — e.g. https://yourcreator.com
+const BASE = process.env.NEXT_PUBLIC_SITE_URL || "https://[your-domain].com"
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const categoryUrls = Object.keys(categoryMeta).map((slug) => ({
@@ -11,7 +12,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }))
 
-  const worksheetUrls = worksheets.map((ws) => ({
+  const resourceUrls = worksheets.map((ws) => ({
     url: `${BASE}/worksheets/${ws.slug}`,
     lastModified: new Date(),
     priority: 0.6,
@@ -29,6 +30,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${BASE}/personalised`, lastModified: new Date(), priority: 0.7 },
     { url: `${BASE}/privacy`, lastModified: new Date(), priority: 0.3 },
     ...categoryUrls,
-    ...worksheetUrls,
+    ...resourceUrls,
   ]
 }

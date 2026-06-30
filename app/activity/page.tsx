@@ -11,12 +11,13 @@ interface Activity {
   suggestedVideo: string
 }
 
-const ageOptions = ["6 months", "12 months", "18 months", "2 years", "3 years", "4 years"]
-const topicOptions = ["Animals", "First Words", "Songs", "Colours", "Numbers"]
+// Customise these to match the creator's niche
+const levelOptions = ["Beginner", "Intermediate", "Advanced", "Expert"]
+const topicOptions = ["[Topic A]", "[Topic B]", "[Topic C]", "[Topic D]", "[Topic E]"]
 
 export default function ActivityPage() {
   const [name, setName] = useState("")
-  const [age, setAge] = useState("")
+  const [level, setLevel] = useState("")
   const [topic, setTopic] = useState("")
   const [loading, setLoading] = useState(false)
   const [activity, setActivity] = useState<Activity | null>(null)
@@ -24,7 +25,7 @@ export default function ActivityPage() {
   const [rateLimited, setRateLimited] = useState(false)
 
   const handleGenerate = async () => {
-    if (!age || !topic) { setError("Please select an age and topic."); return }
+    if (!level || !topic) { setError("Please select a level and topic."); return }
     if (!canGenerateActivity()) { setRateLimited(true); return }
 
     setLoading(true)
@@ -35,23 +36,23 @@ export default function ActivityPage() {
       const res = await fetch("/api/generate-activity", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        // IMPORTANT: only age + topic sent to API — never the child's name
-        body: JSON.stringify({ age, topic }),
+        body: JSON.stringify({ age: level, topic }),
       })
       if (!res.ok) throw new Error("API error")
       const data = await res.json()
 
-      // Insert child's name client-side only
       const personalised: Activity = {
         ...data,
-        title: name ? data.title.replace(/your child|the child/gi, name) || `${name}'s ${data.title}` : data.title,
+        title: name
+          ? data.title.replace(/the viewer|your viewer/gi, name) || `${name}'s Activity: ${data.title}`
+          : data.title,
       }
 
       recordActivityGeneration()
       updateProgress("generate_activity")
       setActivity(personalised)
     } catch {
-      setError("Miss Katie's helper is taking a little nap! Please try again in a moment. 😴")
+      setError("The AI generator is taking a quick break! Please try again in a moment. 😴")
     } finally {
       setLoading(false)
     }
@@ -63,11 +64,11 @@ export default function ActivityPage() {
     <div className="max-w-2xl mx-auto px-4 py-10">
       <div className="mb-8">
         <h1 className="font-display font-black text-brand-dark text-4xl mb-2">
-          Personalised Learning Activities ✨
+          AI Activity Generator ✨
         </h1>
         <p className="font-body text-brand-dark/60 text-lg">
-          Get a free 5-minute home learning activity tailored to your little one.
-          No special equipment needed — just household items!
+          Generate a free, personalised activity idea tailored to your level and topic of interest.
+          Powered by AI — inspired by [Creator Name]&apos;s content.
         </p>
       </div>
 
@@ -75,37 +76,37 @@ export default function ActivityPage() {
         <div className="bg-brand-yellow/20 rounded-2xl p-8 text-center">
           <div className="text-5xl mb-4">⭐</div>
           <h2 className="font-display font-bold text-brand-dark text-2xl mb-2">
-            You&apos;ve made 3 lovely activities today!
+            You&apos;ve generated 3 activities today!
           </h2>
           <p className="font-body text-brand-dark/60">
-            Come back tomorrow for more activities. In the meantime, why not play a game or watch a video?
+            Come back tomorrow for more ideas. In the meantime, why not explore some videos?
           </p>
         </div>
       ) : (
         <div className="bg-white rounded-2xl shadow-md p-6 space-y-5">
           <div>
             <label className="font-body font-semibold text-brand-dark text-sm block mb-2">
-              Child&apos;s Name (optional)
+              Your Name (optional)
             </label>
             <input
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Lily"
+              placeholder="e.g. Alex"
               className="w-full border-2 border-gray-200 focus:border-brand-primary rounded-xl px-4 py-3 font-body text-brand-dark outline-none transition-colors"
             />
-            <p className="text-xs text-brand-dark/40 mt-1">Name stays on your device only — never sent anywhere.</p>
+            <p className="text-xs text-brand-dark/40 mt-1">Stays on your device only — never sent anywhere.</p>
           </div>
 
           <div>
-            <label className="font-body font-semibold text-brand-dark text-sm block mb-2">Age *</label>
+            <label className="font-body font-semibold text-brand-dark text-sm block mb-2">Level *</label>
             <select
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
+              value={level}
+              onChange={(e) => setLevel(e.target.value)}
               className="w-full border-2 border-gray-200 focus:border-brand-primary rounded-xl px-4 py-3 font-body text-brand-dark outline-none transition-colors bg-white"
             >
-              <option value="">Select age...</option>
-              {ageOptions.map((a) => <option key={a} value={a}>{a}</option>)}
+              <option value="">Select level...</option>
+              {levelOptions.map((l) => <option key={l} value={l}>{l}</option>)}
             </select>
           </div>
 
@@ -135,7 +136,7 @@ export default function ActivityPage() {
                 <span className="animate-spin">⭐</span>
                 <span className="animate-bounce" style={{ animationDelay: "0.1s" }}>✨</span>
                 <span className="animate-spin" style={{ animationDelay: "0.2s" }}>⭐</span>
-                <span className="ml-2">Creating your activity...</span>
+                <span className="ml-2">Generating your activity...</span>
               </span>
             ) : (
               "✨ Generate Activity"
@@ -179,11 +180,11 @@ export default function ActivityPage() {
               </ol>
             </div>
             <div className="bg-brand-yellow/20 rounded-xl p-4">
-              <h3 className="font-display font-bold text-brand-dark text-base mb-2">💡 Parent Tip</h3>
+              <h3 className="font-display font-bold text-brand-dark text-base mb-2">💡 Pro Tip</h3>
               <p className="font-body text-brand-dark/70 text-sm">{activity.tip}</p>
             </div>
             <div className="bg-brand-primary/10 rounded-xl p-4">
-              <h3 className="font-display font-bold text-brand-dark text-base mb-2">📺 Suggested Miss Katie Video</h3>
+              <h3 className="font-display font-bold text-brand-dark text-base mb-2">📺 Suggested Video</h3>
               <p className="font-body text-brand-dark/70 text-sm">{activity.suggestedVideo}</p>
             </div>
           </div>

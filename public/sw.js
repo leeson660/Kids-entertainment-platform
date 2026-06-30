@@ -1,4 +1,4 @@
-// Miss Katie's Class Service Worker
+// Creator Content Hub — Service Worker
 // Caches app shell for offline use
 
 const CACHE_NAME = 'mkc-v1'

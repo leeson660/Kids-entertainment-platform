@@ -26,40 +26,41 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Miss Katie's Class | Toddler Learning Videos, Games & Activities",
-    template: "%s | Miss Katie's Class",
+    default: "[Creator Name] | Official Content Hub",
+    template: "%s | [Creator Name]",
   },
   description:
-    "Learn, sing and play with Miss Katie. Free educational videos, interactive games and printable activities for babies and toddlers aged 0-4.",
+    "Watch, learn and explore with [Creator Name]. Videos, free resources, an AI-powered activity generator, and exclusive content — all in one place.",
   keywords: [
-    "toddler learning",
-    "baby learning videos",
-    "miss katie's class",
-    "toddler games",
-    "nursery rhymes",
-    "first words",
-    "BSL for toddlers",
-    "free toddler activities",
+    "[creator name]",
+    "[niche] videos",
+    "[niche] tutorials",
+    "[niche] tips",
+    "[niche] resources",
+    "free [niche] content",
+    "[creator name] channel",
   ],
   manifest: "/manifest.json",
   appleWebApp: {
     capable: true,
     statusBarStyle: "default",
-    title: "Miss Katie's Class",
+    title: "[Creator Name]",
   },
   icons: {
     icon: "/favicon.svg",
     apple: "/icon.svg",
   },
   openGraph: {
-    title: "Miss Katie's Class | Toddler Learning Videos & Games",
+    title: "[Creator Name] | Official Content Hub",
     description:
-      "Fun educational videos, games and activities for babies and toddlers.",
-    url: "https://misskatiesclass.com",
-    siteName: "Miss Katie's Class",
+      "Videos, free resources, and exclusive content from [Creator Name].",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://[your-domain].com",
+    siteName: "[Creator Name]'s Hub",
     type: "website",
   },
-  alternates: { canonical: "https://misskatiesclass.com" },
+  alternates: {
+    canonical: process.env.NEXT_PUBLIC_SITE_URL || "https://[your-domain].com",
+  },
 }
 
 export default function RootLayout({
@@ -94,7 +95,7 @@ function StorageNotice() {
               var d = document.createElement('div');
               d.id = 'mkc-notice';
               d.style.cssText = 'position:fixed;bottom:70px;left:16px;right:16px;background:rgba(26,26,46,0.95);color:white;padding:12px 16px;border-radius:16px;z-index:9999;font-family:sans-serif;font-size:13px;display:flex;align-items:center;justify-content:space-between;gap:12px;max-width:480px;margin:0 auto;';
-              d.innerHTML = '<span>🔒 We store your progress on this device only. No data leaves your phone.</span><button onclick="document.getElementById(\\'mkc-notice\\').remove();localStorage.setItem(\\'mkc_notice_seen\\',\\'1\\')" style="background:#3BB8F0;color:white;border:none;padding:6px 14px;border-radius:10px;cursor:pointer;font-weight:bold;white-space:nowrap;">OK</button>';
+              d.innerHTML = '<span>🔒 We store your progress on this device only. No data leaves your device.</span><button onclick="document.getElementById(\\'mkc-notice\\').remove();localStorage.setItem(\\'mkc_notice_seen\\',\\'1\\')" style="background:#3BB8F0;color:white;border:none;padding:6px 14px;border-radius:10px;cursor:pointer;font-weight:bold;white-space:nowrap;">OK</button>';
               document.body.appendChild(d);
             }
           })();

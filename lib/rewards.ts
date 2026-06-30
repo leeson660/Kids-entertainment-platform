@@ -12,7 +12,7 @@ export interface Progress {
   stars: number
   childName: string
   videosWatched: string[]
-  gamesCompleted: Record<string, number>
+  gamesCompleted: Record<string, number>  // kept for data-structure backward compat
   worksheetsPrinted: string[]
   activitiesGenerated: number
   visitDates: string[]
@@ -30,46 +30,32 @@ export const allBadges: Badge[] = [
     howToEarn: "Earn your first star",
   },
   {
-    id: "animal-expert",
-    name: "Animal Expert",
-    emoji: "🐾",
-    description: "You know all your animals!",
-    howToEarn: "Complete the animals game 3 times",
-  },
-  {
-    id: "colour-champion",
-    name: "Colour Champion",
-    emoji: "🎨",
-    description: "You know all your colours!",
-    howToEarn: "Complete the colours game 3 times",
-  },
-  {
-    id: "shape-superstar",
-    name: "Shape Superstar",
-    emoji: "⭐",
-    description: "You know all your shapes!",
-    howToEarn: "Complete the shapes game 3 times",
-  },
-  {
     id: "video-explorer",
     name: "Video Explorer",
     emoji: "📺",
-    description: "You've watched so many videos!",
+    description: "You've explored loads of content!",
     howToEarn: "Watch 10 videos",
   },
   {
-    id: "music-lover",
-    name: "Music Lover",
-    emoji: "🎵",
-    description: "You love Miss Katie's songs!",
-    howToEarn: "Watch 5 songs videos",
+    id: "resource-collector",
+    name: "Resource Collector",
+    emoji: "📚",
+    description: "You're building a great collection of resources!",
+    howToEarn: "Download 3 resources",
   },
   {
-    id: "activity-master",
-    name: "Activity Master",
-    emoji: "🖨️",
-    description: "You love printing activities!",
-    howToEarn: "Print 3 worksheets",
+    id: "content-creator-fan",
+    name: "Superfan",
+    emoji: "🎬",
+    description: "A true fan of [Creator Name]!",
+    howToEarn: "Watch 25 videos",
+  },
+  {
+    id: "idea-generator",
+    name: "Idea Generator",
+    emoji: "💡",
+    description: "You love generating new ideas!",
+    howToEarn: "Use the AI Activity Generator 5 times",
   },
   {
     id: "on-a-roll",
@@ -82,14 +68,14 @@ export const allBadges: Badge[] = [
     id: "super-learner",
     name: "Super Learner",
     emoji: "🌟",
-    description: "You're amazing at learning!",
+    description: "You're amazing at exploring content!",
     howToEarn: "Earn 50 stars total",
   },
   {
-    id: "miss-katies-star",
-    name: "Miss Katie's Star",
+    id: "community-champion",
+    name: "Community Champion",
     emoji: "🏆",
-    description: "You're Miss Katie's superstar!",
+    description: "You're a true champion of this community!",
     howToEarn: "Earn 100 stars total",
   },
 ]
@@ -134,20 +120,17 @@ function checkBadges(p: Progress): string[] {
   }
 
   if (p.stars >= 1) add("first-star")
-  if ((p.gamesCompleted["animals"] || 0) >= 15) add("animal-expert") // 5 correct x 3 rounds
-  if ((p.gamesCompleted["colours"] || 0) >= 15) add("colour-champion")
-  if ((p.gamesCompleted["shapes"] || 0) >= 15) add("shape-superstar")
   if (p.videosWatched.length >= 10) add("video-explorer")
-  if (p.worksheetsPrinted.length >= 3) add("activity-master")
+  if (p.videosWatched.length >= 25) add("content-creator-fan")
+  if (p.worksheetsPrinted.length >= 3) add("resource-collector")
+  if (p.activitiesGenerated >= 5) add("idea-generator")
   if (p.stars >= 50) add("super-learner")
-  if (p.stars >= 100) add("miss-katies-star")
+  if (p.stars >= 100) add("community-champion")
 
   // streak badge
   const today = new Date().toISOString().split("T")[0]
   const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0]
-  const twoDaysAgo = new Date(Date.now() - 172800000)
-    .toISOString()
-    .split("T")[0]
+  const twoDaysAgo = new Date(Date.now() - 172800000).toISOString().split("T")[0]
   if (
     p.visitDates.includes(today) &&
     p.visitDates.includes(yesterday) &&
@@ -209,13 +192,8 @@ export function updateProgress(
     case "daily_visit":
       if (!p.visitDates.includes(today)) {
         p.visitDates.push(today)
-        // check 3-day streak bonus
-        const yesterday = new Date(Date.now() - 86400000)
-          .toISOString()
-          .split("T")[0]
-        const twoDaysAgo = new Date(Date.now() - 172800000)
-          .toISOString()
-          .split("T")[0]
+        const yesterday = new Date(Date.now() - 86400000).toISOString().split("T")[0]
+        const twoDaysAgo = new Date(Date.now() - 172800000).toISOString().split("T")[0]
         if (p.visitDates.includes(yesterday) && p.visitDates.includes(twoDaysAgo)) {
           p.stars += 5
           starsEarned = 5

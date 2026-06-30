@@ -7,16 +7,15 @@ import { VideoModal } from "@/components/VideoModal"
 import { EmptyState } from "@/components/EmptyState"
 import { VideoGridSkeleton } from "@/components/LoadingSkeleton"
 import { ErrorState } from "@/components/ErrorState"
-import { VideoCategory, getVideosByCategory } from "@/lib/categorise"
+import { VideoCategory, categoryMeta, getVideosByCategory } from "@/lib/categorise"
 
-const categories: { id: "all" | VideoCategory; label: string; emoji: string }[] = [
+const filterCategories: { id: "all" | VideoCategory; label: string; emoji: string }[] = [
   { id: "all", label: "All", emoji: "🎬" },
-  { id: "animals", label: "Animals", emoji: "🐾" },
-  { id: "first-words", label: "First Words", emoji: "🗣️" },
-  { id: "songs", label: "Songs", emoji: "🎵" },
-  { id: "sign-language", label: "Sign Language", emoji: "✋" },
-  { id: "emotions", label: "Emotions", emoji: "😊" },
-  { id: "abc-numbers", label: "ABC & Numbers", emoji: "🔤" },
+  ...Object.entries(categoryMeta).map(([id, meta]) => ({
+    id: id as VideoCategory,
+    label: meta.label,
+    emoji: meta.emoji,
+  })),
 ]
 
 export default function VideosPage() {
@@ -60,10 +59,10 @@ export default function VideosPage() {
     <div className="max-w-6xl mx-auto px-4 py-10">
       <div className="mb-8">
         <h1 className="font-display font-black text-brand-dark text-4xl mb-2">
-          Free Toddler Learning Videos 🎬
+          All Videos 🎬
         </h1>
         <p className="font-body text-brand-dark/60">
-          Watch all of Miss Katie&apos;s videos — songs, first words, sign language and more.
+          Browse the full video library — search, filter by category, and discover new content.
         </p>
       </div>
 
@@ -80,7 +79,7 @@ export default function VideosPage() {
 
       {/* Filter chips */}
       <div className="flex gap-2 flex-wrap mb-8">
-        {categories.map((cat) => (
+        {filterCategories.map((cat) => (
           <button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id)}
@@ -101,7 +100,7 @@ export default function VideosPage() {
         <EmptyState
           message={
             search
-              ? `We couldn't find any videos matching "${search}". Try a different word!`
+              ? `No videos found matching "${search}". Try a different search term.`
               : "No videos in this category yet — check back soon!"
           }
         />
