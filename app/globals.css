@@ -8,20 +8,14 @@
 
 /* Brand colour tokens — inline so they're baked into generated CSS */
 @theme inline {
-  --color-brand-primary: #3bb8f0;
-  --color-brand-red: #cf0000;
-  --color-brand-yellow: #ffd700;
-  --color-brand-green: #4caf50;
-  --color-brand-dark: #1a1a2e;
+  --color-brand-primary: #6366f1;   /* indigo — professional, modern */
+  --color-brand-red: #e11d48;       /* rose   — richer than pure red  */
+  --color-brand-yellow: #f59e0b;    /* amber  — warm, sophisticated    */
+  --color-brand-green: #10b981;     /* emerald                         */
+  --color-brand-dark: #0f172a;      /* slate-900 — near-black          */
 }
 
 /* ---- Animations ---- */
-
-@keyframes float {
-  0%, 100% { transform: translateY(0px) rotate(0deg); }
-  33% { transform: translateY(-12px) rotate(5deg); }
-  66% { transform: translateY(-6px) rotate(-3deg); }
-}
 
 @keyframes fadeIn {
   0% { opacity: 0; }
@@ -55,7 +49,6 @@
 }
 
 /* Animation utility classes */
-.animate-float { animation: float 4s ease-in-out infinite; }
 .animate-fadeIn { animation: fadeIn 0.3s ease-out; }
 .animate-slideUp { animation: slideUp 0.4s ease-out; }
 .animate-confetti { animation: confetti 2.5s ease-in forwards; }
@@ -85,6 +78,6 @@
 
 /* ---- Base ---- */
 body {
-  background: #f9fafb;
-  color: #1a1a2e;
+  background: #f8fafc;
+  color: #0f172a;
 }

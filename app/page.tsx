@@ -1,13 +1,11 @@
 import { Metadata } from "next"
 import Link from "next/link"
-import { getChannelVideos } from "@/lib/youtube"
 import { categoryMeta } from "@/lib/categorise"
 import { shopData } from "@/lib/shopData"
 import { siteConfig } from "@/lib/siteConfig"
 import { Hero } from "@/components/Hero"
 import { ProductCard } from "@/components/ProductCard"
 import { CategoryCard } from "@/components/CategoryCard"
-import { VideoGridClient } from "./VideoGridClient"
 
 export const metadata: Metadata = {
   title: "[Creator Name] | Official Content Hub — Videos, Resources & More",
@@ -27,8 +25,7 @@ const orgSchema = {
   sameAs: [siteConfig.socials.youtube, siteConfig.socials.instagram],
 }
 
-// FAQ schema — demonstrates AEO-structured content architecture
-// Replace questions and answers with real creator-specific copy on deployment
+// FAQ schema — AEO-structured content; replace with real Q&As on deployment
 const faqs = [
   {
     question: "What kind of content does [Creator Name] make?",
@@ -62,14 +59,39 @@ const faqSchema = {
   })),
 }
 
-export default async function HomePage() {
-  let allVideos: Awaited<ReturnType<typeof getChannelVideos>> = []
-  try {
-    allVideos = await getChannelVideos()
-  } catch {
-    // Error handled by empty state below
-  }
-  const latestVideos = allVideos.slice(0, 6)
+// Placeholder video cards — shown until a real YouTube channel is connected
+const placeholderVideos = [
+  { id: 1, title: "Getting Started with [Creator Name]", views: "124K", duration: "12:34", category: "Getting Started" },
+  { id: 2, title: "The Ultimate Beginner's Guide", views: "98K", duration: "18:02", category: "Tutorials" },
+  { id: 3, title: "5 Tips You Need to Know", views: "201K", duration: "8:47", category: "Tips & Tricks" },
+  { id: 4, title: "Deep Dive: Everything Explained", views: "76K", duration: "34:21", category: "Deep Dives" },
+  { id: 5, title: "My Honest Review — Worth It?", views: "143K", duration: "15:09", category: "Reviews" },
+  { id: 6, title: "Q&A — Your Questions Answered", views: "89K", duration: "22:56", category: "Community" },
+]
+
+function PlaceholderVideoCard({ video }: { video: typeof placeholderVideos[0] }) {
+  return (
+    <div className="bg-white rounded-xl overflow-hidden border border-gray-100 shadow-sm group hover:shadow-md transition-shadow duration-200">
+      <div className="aspect-video bg-gradient-to-br from-slate-100 to-slate-200 flex flex-col items-center justify-center gap-2 relative">
+        <div className="w-12 h-12 rounded-full bg-brand-primary/10 border border-brand-primary/20 flex items-center justify-center">
+          <span className="text-brand-primary text-xl">▶</span>
+        </div>
+        <span className="absolute bottom-2 right-2 bg-black/60 text-white text-xs font-body px-1.5 py-0.5 rounded">
+          {video.duration}
+        </span>
+      </div>
+      <div className="p-3">
+        <span className="text-xs font-body text-brand-primary font-semibold">{video.category}</span>
+        <p className="font-display font-semibold text-brand-dark text-sm leading-snug mt-0.5 line-clamp-2">
+          {video.title}
+        </p>
+        <p className="font-body text-brand-dark/40 text-xs mt-1">{video.views} views</p>
+      </div>
+    </div>
+  )
+}
+
+export default function HomePage() {
   const featuredShop = shopData.filter((p) => p.featured).slice(0, 4)
 
   return (
@@ -86,35 +108,41 @@ export default async function HomePage() {
       <Hero />
 
       {/* Latest Videos */}
-      <section id="videos" className="max-w-6xl mx-auto px-4 py-14">
+      <section id="videos" className="max-w-6xl mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="font-display font-black text-brand-dark text-3xl md:text-4xl">
-            Latest from [Creator Name] 🎬
-          </h2>
-          <Link href="/videos" className="font-body font-semibold text-brand-primary hover:underline">
-            See all →
-          </Link>
-        </div>
-        {latestVideos.length > 0 ? (
-          <VideoGridClient videos={latestVideos} />
-        ) : (
-          <div className="text-center py-12 bg-white rounded-2xl shadow-sm">
-            <p className="font-body text-brand-dark/50 text-lg">
-              🎬 Videos will appear here once your YouTube API key is configured.
+          <div>
+            <h2 className="font-display font-black text-brand-dark text-3xl md:text-4xl">
+              Latest Videos
+            </h2>
+            <p className="font-body text-brand-dark/40 text-sm mt-1">
+              Connect your YouTube channel to display real videos
             </p>
           </div>
-        )}
+          <Link href="/videos" className="font-body font-semibold text-brand-primary text-sm hover:underline">
+            View all →
+          </Link>
+        </div>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+          {placeholderVideos.map((video) => (
+            <PlaceholderVideoCard key={video.id} video={video} />
+          ))}
+        </div>
       </section>
 
+      {/* Divider */}
+      <div className="border-t border-gray-100" />
+
       {/* Categories */}
-      <section className="bg-white py-14">
+      <section className="bg-white py-16">
         <div className="max-w-6xl mx-auto px-4">
-          <h2 className="font-display font-black text-brand-dark text-3xl md:text-4xl mb-3 text-center">
-            What would you like to explore? 📚
-          </h2>
-          <p className="font-body text-brand-dark/60 text-center mb-8">
-            Browse content by category
-          </p>
+          <div className="mb-8">
+            <h2 className="font-display font-black text-brand-dark text-3xl md:text-4xl">
+              Browse by Category
+            </h2>
+            <p className="font-body text-brand-dark/50 mt-1">
+              Find exactly what you&apos;re looking for
+            </p>
+          </div>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {Object.entries(categoryMeta).map(([slug, meta]) => (
               <CategoryCard key={slug} slug={slug} label={meta.label} emoji={meta.emoji} description={meta.description} />
@@ -123,40 +151,40 @@ export default async function HomePage() {
         </div>
       </section>
 
-      {/* Content Hub teaser */}
-      <section className="bg-brand-yellow py-14">
+      {/* Content Hub CTA */}
+      <section className="bg-brand-dark py-16">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-display font-black text-brand-dark text-3xl md:text-4xl mb-4">
-            Explore the Content Hub 🗂️
+          <h2 className="font-display font-black text-white text-3xl md:text-4xl mb-3">
+            Content Hub
           </h2>
-          <p className="font-body text-brand-dark/70 text-lg mb-8">
-            Featured videos, curated playlists, and top picks from [Creator Name] — all in one place.
+          <p className="font-body text-white/50 text-base mb-8">
+            Featured picks, curated playlists, and top-rated content from [Creator Name] — all in one place.
           </p>
           <Link
             href="/play"
-            className="inline-block bg-brand-dark text-white font-display font-black text-xl px-10 py-5 rounded-2xl shadow-lg hover:bg-brand-dark/90 transition-all duration-200 hover:scale-105 w-full sm:w-auto"
+            className="inline-block bg-brand-primary text-white font-display font-bold text-base px-8 py-3.5 rounded-xl shadow-lg shadow-brand-primary/30 hover:bg-brand-primary/90 transition-all duration-200 hover:scale-105"
           >
-            🗂️ Open Content Hub
+            Open Content Hub
           </Link>
         </div>
       </section>
 
-      {/* Free Resources teaser */}
-      <section className="max-w-6xl mx-auto px-4 py-14">
+      {/* Free Resources */}
+      <section className="max-w-6xl mx-auto px-4 py-16">
         <div className="flex items-center justify-between mb-8">
           <div>
             <h2 className="font-display font-black text-brand-dark text-3xl md:text-4xl">
-              Free Downloadable Resources 📥
+              Free Resources
             </h2>
-            <p className="font-body text-brand-dark/60 mt-2">
-              Guides, cheat sheets, templates and more — completely free
+            <p className="font-body text-brand-dark/50 mt-1">
+              Guides, cheat sheets, and templates — no sign-up needed
             </p>
           </div>
-          <Link href="/worksheets" className="hidden sm:block font-body font-semibold text-brand-primary hover:underline">
+          <Link href="/worksheets" className="hidden sm:block font-body font-semibold text-brand-primary text-sm hover:underline">
             See all →
           </Link>
         </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
           {[
             { emoji: "📖", title: "Starter Guide", desc: "Everything you need to get going" },
             { emoji: "📋", title: "Cheat Sheet", desc: "Key reference — print and keep handy" },
@@ -165,14 +193,12 @@ export default async function HomePage() {
             <Link
               key={w.title}
               href="/worksheets"
-              className="group bg-white rounded-2xl p-6 shadow-md hover:shadow-xl transition-all text-center hover:-translate-y-1"
+              className="group bg-white rounded-xl p-6 border border-gray-100 shadow-sm hover:shadow-md hover:border-brand-primary/20 transition-all text-center hover:-translate-y-0.5"
             >
-              <span className="text-5xl block mb-3 group-hover:scale-110 transition-transform duration-200">
-                {w.emoji}
-              </span>
-              <h3 className="font-display font-bold text-brand-dark text-lg">{w.title}</h3>
-              <p className="font-body text-brand-dark/50 text-sm mt-1">{w.desc}</p>
-              <span className="inline-block mt-4 bg-brand-primary text-white font-body font-bold text-sm px-4 py-2 rounded-xl">
+              <span className="text-4xl block mb-3">{w.emoji}</span>
+              <h3 className="font-display font-bold text-brand-dark text-base">{w.title}</h3>
+              <p className="font-body text-brand-dark/50 text-sm mt-1 mb-4">{w.desc}</p>
+              <span className="inline-block bg-brand-primary/10 text-brand-primary font-body font-semibold text-sm px-4 py-1.5 rounded-lg group-hover:bg-brand-primary group-hover:text-white transition-colors">
                 Download Free
               </span>
             </Link>
@@ -181,57 +207,64 @@ export default async function HomePage() {
       </section>
 
       {/* Creator Recommends */}
-      <section className="bg-white py-14">
-        <div className="max-w-6xl mx-auto px-4">
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-display font-black text-brand-dark text-3xl md:text-4xl">
-              [Creator Name] Recommends 🌟
-            </h2>
-            <Link href="/shop" className="font-body font-semibold text-brand-primary hover:underline">
-              See all →
-            </Link>
+      {featuredShop.length > 0 && (
+        <section className="bg-slate-50 border-y border-gray-100 py-16">
+          <div className="max-w-6xl mx-auto px-4">
+            <div className="flex items-center justify-between mb-8">
+              <div>
+                <h2 className="font-display font-black text-brand-dark text-3xl md:text-4xl">
+                  Recommended
+                </h2>
+                <p className="font-body text-brand-dark/50 mt-1">
+                  Products and tools [Creator Name] personally recommends
+                </p>
+              </div>
+              <Link href="/shop" className="font-body font-semibold text-brand-primary text-sm hover:underline">
+                See all →
+              </Link>
+            </div>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {featuredShop.map((item) => (
+                <ProductCard key={item.id} item={item} />
+              ))}
+            </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {featuredShop.map((item) => (
-              <ProductCard key={item.id} item={item} />
-            ))}
-          </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* Exclusive Content CTA */}
-      <section className="bg-gradient-to-r from-brand-red to-pink-600 py-14">
+      <section className="bg-gradient-to-br from-brand-primary to-indigo-700 py-16">
         <div className="max-w-3xl mx-auto px-4 text-center">
-          <h2 className="font-display font-black text-white text-3xl md:text-4xl mb-4">
-            {siteConfig.exclusiveContent.heading} 🎬
+          <h2 className="font-display font-black text-white text-3xl md:text-4xl mb-3">
+            {siteConfig.exclusiveContent.heading}
           </h2>
-          <p className="font-body text-white/90 text-lg mb-8">
+          <p className="font-body text-white/70 text-base mb-8">
             {siteConfig.exclusiveContent.description}
           </p>
           <a
             href={siteConfig.exclusiveContent.orderUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-block bg-white text-brand-red font-display font-black text-xl px-10 py-5 rounded-2xl shadow-lg hover:bg-brand-yellow hover:text-brand-dark transition-all duration-200 hover:scale-105"
+            className="inline-block bg-white text-brand-primary font-display font-bold text-base px-10 py-3.5 rounded-xl shadow-lg hover:bg-brand-yellow hover:text-brand-dark transition-all duration-200 hover:scale-105"
           >
-            Order Now ✨
+            Order Now
           </a>
         </div>
       </section>
 
       {/* FAQ — AEO structured content */}
-      <section className="max-w-3xl mx-auto px-4 py-14">
-        <h2 className="font-display font-black text-brand-dark text-3xl mb-8 text-center">
+      <section className="max-w-3xl mx-auto px-4 py-16">
+        <h2 className="font-display font-black text-brand-dark text-3xl mb-8">
           Frequently Asked Questions
         </h2>
-        <div className="space-y-4">
+        <div className="space-y-3">
           {faqs.map((faq) => (
-            <details key={faq.question} className="bg-white rounded-2xl shadow-sm p-5 group">
-              <summary className="font-body font-semibold text-brand-dark cursor-pointer list-none flex items-center justify-between">
+            <details key={faq.question} className="bg-white rounded-xl border border-gray-100 p-5 group">
+              <summary className="font-body font-semibold text-brand-dark cursor-pointer list-none flex items-center justify-between text-sm">
                 {faq.question}
-                <span className="text-brand-primary text-xl font-bold">+</span>
+                <span className="text-brand-primary font-bold ml-4 shrink-0">+</span>
               </summary>
-              <p className="font-body text-brand-dark/70 mt-3 text-sm leading-relaxed">
+              <p className="font-body text-brand-dark/60 mt-3 text-sm leading-relaxed">
                 {faq.answer}
               </p>
             </details>
@@ -240,65 +273,68 @@ export default async function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-brand-dark text-white py-12 no-print">
+      <footer className="bg-brand-dark text-white py-14 no-print">
         <div className="max-w-6xl mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-10">
             <div>
-              <h4 className="font-display font-bold text-brand-yellow mb-3">Watch</h4>
-              <nav className="space-y-2">
+              <h4 className="font-display font-bold text-brand-yellow text-sm uppercase tracking-widest mb-4">Watch</h4>
+              <nav className="space-y-2.5">
                 {[
                   { href: "/videos", label: "All Videos" },
                   { href: "/category/getting-started", label: "Getting Started" },
                   { href: "/category/tutorials", label: "Tutorials" },
                   { href: "/category/tips-and-tricks", label: "Tips & Tricks" },
                 ].map((l) => (
-                  <Link key={l.href} href={l.href} className="block font-body text-sm text-white/70 hover:text-white transition-colors">{l.label}</Link>
+                  <Link key={l.href} href={l.href} className="block font-body text-sm text-white/50 hover:text-white transition-colors">{l.label}</Link>
                 ))}
               </nav>
             </div>
             <div>
-              <h4 className="font-display font-bold text-brand-yellow mb-3">Explore</h4>
-              <nav className="space-y-2">
+              <h4 className="font-display font-bold text-brand-yellow text-sm uppercase tracking-widest mb-4">Explore</h4>
+              <nav className="space-y-2.5">
                 {[
                   { href: "/play", label: "Content Hub" },
                   { href: "/worksheets", label: "Free Resources" },
-                  { href: "/activity", label: "AI Activity Generator" },
+                  { href: "/activity", label: "AI Generator" },
                   { href: "/progress", label: "My Progress" },
                 ].map((l) => (
-                  <Link key={l.href} href={l.href} className="block font-body text-sm text-white/70 hover:text-white transition-colors">{l.label}</Link>
+                  <Link key={l.href} href={l.href} className="block font-body text-sm text-white/50 hover:text-white transition-colors">{l.label}</Link>
                 ))}
               </nav>
             </div>
             <div>
-              <h4 className="font-display font-bold text-brand-yellow mb-3">[Creator Name]</h4>
-              <nav className="space-y-2">
+              <h4 className="font-display font-bold text-brand-yellow text-sm uppercase tracking-widest mb-4">Creator</h4>
+              <nav className="space-y-2.5">
                 {[
                   { href: "/about", label: "About" },
                   { href: "/shop", label: "Shop" },
                   { href: "/personalised", label: "Exclusive Content" },
                   { href: "/privacy", label: "Privacy" },
                 ].map((l) => (
-                  <Link key={l.href} href={l.href} className="block font-body text-sm text-white/70 hover:text-white transition-colors">{l.label}</Link>
+                  <Link key={l.href} href={l.href} className="block font-body text-sm text-white/50 hover:text-white transition-colors">{l.label}</Link>
                 ))}
               </nav>
             </div>
             <div>
-              <h4 className="font-display font-bold text-brand-yellow mb-3">Follow</h4>
-              <nav className="space-y-2">
+              <h4 className="font-display font-bold text-brand-yellow text-sm uppercase tracking-widest mb-4">Follow</h4>
+              <nav className="space-y-2.5">
                 {[
-                  { href: siteConfig.socials.youtube, label: "▶ YouTube" },
-                  { href: siteConfig.socials.instagram, label: "📸 Instagram" },
-                  { href: siteConfig.socials.tiktok, label: "🎵 TikTok" },
-                  { href: siteConfig.socials.facebook, label: "👍 Facebook" },
+                  { href: siteConfig.socials.youtube, label: "YouTube" },
+                  { href: siteConfig.socials.instagram, label: "Instagram" },
+                  { href: siteConfig.socials.tiktok, label: "TikTok" },
+                  { href: siteConfig.socials.facebook, label: "Facebook" },
                 ].map((l) => (
-                  <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="block font-body text-sm text-white/70 hover:text-white transition-colors">{l.label}</a>
+                  <a key={l.href} href={l.href} target="_blank" rel="noopener noreferrer" className="block font-body text-sm text-white/50 hover:text-white transition-colors">{l.label}</a>
                 ))}
               </nav>
             </div>
           </div>
-          <div className="border-t border-white/10 pt-6 text-center">
-            <p className="font-body text-white/40 text-sm">
+          <div className="border-t border-white/10 pt-6 flex flex-col sm:flex-row items-center justify-between gap-2">
+            <p className="font-body text-white/30 text-xs">
               © {new Date().getFullYear()} {siteConfig.companyName}. All rights reserved.
+            </p>
+            <p className="font-body text-white/20 text-xs">
+              Built on the Creator Hub platform
             </p>
           </div>
         </div>
