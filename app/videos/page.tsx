@@ -82,9 +82,6 @@ export default function VideosPage() {
         <p className="font-body text-brand-dark/60">
           Browse the full video library — search, filter by category, and discover new content.
         </p>
-        <p className="font-body text-brand-dark/30 text-xs mt-1">
-          Connect your YouTube channel to display real videos (set YOUTUBE_API_KEY + YOUTUBE_CHANNEL_ID)
-        </p>
       </div>
 
       {/* Search */}
